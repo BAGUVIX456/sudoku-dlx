@@ -1,4 +1,6 @@
+#include<iostream>
 
+using namespace std;
 
 class node {
     node* up;
@@ -6,15 +8,11 @@ class node {
     node* right;
     node* left;
     node* header;
-    bool is_header;
-    int size;
     int coords[3];
-
+    int is_header;
+    int size;
+    
     public:
-        node(node* h) {
-            right = h;
-        }
-
         node() {
             up = nullptr;
             down = nullptr;
@@ -23,23 +21,14 @@ class node {
             header = nullptr;
             is_header = false;
             size = -1;
-            value = -1;
         }
 
-        friend node* convert(char puzzle[]) {
-            int i=0;
-            while(puzzle[i] != '\0') {
-                cout << "line\n";
-            } 
-        }
-
-        void dlx() {
-            if right == this {
-                // add to solution
-            } 
-            else {
-                int c = choose_col();
-                cover(c);
+        void init_colheaders() {
+            for(int i=0; i<325; i++) {
+                (this+i)->right = this+((i+1)%325);
+                (this+i)->left = this+(i-1 >= 0? i-1 : 324);
+                this->is_header = true;
+                this->size = 0;
             }
         }
 };
