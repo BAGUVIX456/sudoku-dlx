@@ -31,4 +31,8 @@ class node {
                 this->size = 0;
             }
         }
+
+        void init_nodes(node* root) {
+
+        }
 };
