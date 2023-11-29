@@ -20,8 +20,11 @@ int main() {
     node* root = new node[325];
     root->init_colheaders();
 
-    node* matrix = new node[4*calculate_size(puzzle)];
-    matrix->init_nodes(root);
+    int rows = calculate_size(puzzle);
+    node** matrix = new node*[rows];
+    for(int i=0; i<rows; i++)
+        matrix[i] = new node[4];
+    root->init_nodes(matrix, puzzle);
 
     return 0;
 }
