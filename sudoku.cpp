@@ -26,5 +26,10 @@ int main() {
         matrix[i] = new node[4];
     root->init_nodes(matrix, puzzle);
 
+    int** solution = new int*[81];
+    for(int i=0; i<81; i++)
+        solution[i] = new int[3];
+    root->dlx(matrix, solution);
+
     return 0;
 }

@@ -1,7 +1,6 @@
 #include<iostream>
 
 using namespace std;
-// REMEMBER TO REMOVE IOSTREAM AND STD BEFORE GIT UPLOAD
 
 class node {
     node* up;
@@ -29,6 +28,7 @@ class node {
 
         void init_colheaders();
         void init_nodes(node**, char*);
+        void dlx(node**, int**);
 };
 
 void node::wire_nodes(node** matrix, int row, int pos, int val) {
@@ -70,8 +70,8 @@ void node::init_colheaders() {
     for(int i=0; i<325; i++) {
         (this+i)->right = this+((i+1)%325);
         (this+i)->left = this+(i-1 >= 0? i-1 : 324);
-        this->is_header = true;
-        this->size = 0;
+        (this+i)->is_header = true;
+        (this+i)->size = 0;
     }
 }
 
@@ -80,12 +80,12 @@ void node::init_nodes(node** matrix, char* puzzle) {
 
     for(int i=0; i<strlen(puzzle); i++) {
         if(puzzle[i] >= '1' && puzzle[i] <= '9') {
-            this->wire_nodes(matrix, row, i, puzzle[i]-'0');
+            wire_nodes(matrix, row, i, puzzle[i]-'0');
             row++;
         }
         else {
             for(int val=1; val <= 9; val++) {
-                this->wire_nodes(matrix, row, i, val);
+                wire_nodes(matrix, row, i, val);
                 row++;
             }
         }
@@ -98,3 +98,27 @@ void node::init_nodes(node** matrix, char* puzzle) {
         (this+i)->up = p;
     }
 }
+
+void print_solution(int** solution) {
+    int sudoku[9][9];
+    for(int i=0; i<81; i++) {
+        sudoku[solution[i][0]][solution[i][1]] = solution[i][2];
+    }
+
+    for(int i=0; i<9; i++) {
+        for(int j=0; j<9; j++)
+            cout << sudoku[i][j] << "  ";
+        cout << endl;
+    }
+}
+
+void node::dlx(node** matrix, int** solution) {
+    if(right == this) {
+        print_solution(solution);
+        return;
+    }
+    else {
+        
+    }
+}
+
