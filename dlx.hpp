@@ -14,6 +14,7 @@ class node {
 
     void wire_nodes(node**, int, int, int);
     node* choose_col();
+    void cover();
     
     public:
         node( ) {
@@ -110,6 +111,21 @@ node* node::choose_col() {
     return lowest;
 }
 
+void node::cover() {
+    right->left = left;
+    left->right = right;
+
+    node* p = down;
+    for(p; p != this; p = p->down) {
+        node* q = p->right;
+        for(q; q != p; q = q->right) {
+            (q->down)->up = q->up;
+            (q->up)->down = q->down;
+            (q->header)->size--;
+        }
+    }
+}
+
 void print_solution(int** solution) {
     int sudoku[9][9];
     for(int i=0; i<81; i++) {
@@ -130,6 +146,7 @@ void node::dlx(node** matrix, int** solution) {
     }
     else {
         node* c = choose_col();
+        c->cover();
     }
 }
 
