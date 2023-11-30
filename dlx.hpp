@@ -13,6 +13,7 @@ class node {
     int size;
 
     void wire_nodes(node**, int, int, int);
+    node* choose_col();
     
     public:
         node( ) {
@@ -99,6 +100,16 @@ void node::init_nodes(node** matrix, char* puzzle) {
     }
 }
 
+node* node::choose_col() {
+    node* p = right;
+    node* lowest = right;   
+    for(p; p != this; p = p->right)
+        if(p->size < lowest->size)
+            lowest = p;
+
+    return lowest;
+}
+
 void print_solution(int** solution) {
     int sudoku[9][9];
     for(int i=0; i<81; i++) {
@@ -118,7 +129,7 @@ void node::dlx(node** matrix, int** solution) {
         return;
     }
     else {
-        
+        node* c = choose_col();
     }
 }
 
