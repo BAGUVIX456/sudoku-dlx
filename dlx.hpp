@@ -15,6 +15,7 @@ class node {
     void wire_nodes(node**, int, int, int);
     node* choose_col();
     void cover();
+    void uncover();
     
     public:
         node( ) {
@@ -30,7 +31,7 @@ class node {
 
         void init_colheaders();
         void init_nodes(node**, char*);
-        void dlx(node**, int**);
+        void dlx(node**, int**, int);
 };
 
 void node::wire_nodes(node** matrix, int row, int pos, int val) {
@@ -126,6 +127,21 @@ void node::cover() {
     }
 }
 
+void node::uncover() {
+    node* p = up;
+    for(p; p != this; p = p->up) {
+        node* q = p->left;
+        for(q; q != p; q = q->left) {
+            (q->header)->size++;
+            (q->down)->up = q;
+            (q->up)->down = q;
+        }
+    }
+
+    right->left = this;
+    left->right = this;
+}
+
 void print_solution(int** solution) {
     int sudoku[9][9];
     for(int i=0; i<81; i++) {
@@ -134,12 +150,13 @@ void print_solution(int** solution) {
 
     for(int i=0; i<9; i++) {
         for(int j=0; j<9; j++)
-            cout << sudoku[i][j] << "  ";
+            cout << sudoku[i][j] << " ";
         cout << endl;
     }
+    cout << endl << endl;
 }
 
-void node::dlx(node** matrix, int** solution) {
+void node::dlx(node** matrix, int** solution, int i) {
     if(right == this) {
         print_solution(solution);
         return;
@@ -147,6 +164,23 @@ void node::dlx(node** matrix, int** solution) {
     else {
         node* c = choose_col();
         c->cover();
+
+        node* p = c->down;
+        for(p; p != c; p = p->down) {
+            solution[i] = p->coords;
+            i++;
+
+            node* q = p->right;
+            for(q; q != p; q = q->right)
+                (q->header)->cover();
+
+            dlx(matrix, solution, i);
+
+            i--;
+            node* q = p->left;
+            for(q; q != p; q = q->left)
+                (q->header)->uncover();
+        }
     }
 }
 

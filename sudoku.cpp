@@ -30,7 +30,7 @@ int main() {
     int** solution = new int*[81];
     for(int i=0; i<81; i++)
         solution[i] = new int[3];
-    root->dlx(matrix, solution);
+    root->dlx(matrix, solution, 0);
 
     return 0;
 }
