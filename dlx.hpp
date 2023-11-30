@@ -177,7 +177,7 @@ void node::dlx(node** matrix, int** solution, int i) {
             dlx(matrix, solution, i);
 
             i--;
-            node* q = p->left;
+            q = p->left;
             for(q; q != p; q = q->left)
                 (q->header)->uncover();
         }
