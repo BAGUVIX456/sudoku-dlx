@@ -1,6 +1,7 @@
 #include<iostream>
 
 using namespace std;
+// REMEMBER TO REMOVE IOSTREAM AND STD BEFORE GIT UPLOAD
 
 class node {
     node* up;
@@ -88,5 +89,12 @@ void node::init_nodes(node** matrix, char* puzzle) {
                 row++;
             }
         }
+    }
+
+    for(int i=1; i<325; i++) {
+        node* p = this+i;
+        for(p; p->down != nullptr; p = p->down);
+        p->down = this+i;
+        (this+i)->up = p;
     }
 }
