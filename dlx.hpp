@@ -161,26 +161,27 @@ void node::dlx(node** matrix, int** solution, int i) {
         print_solution(solution);
         return;
     }
-    else {
-        node* c = choose_col();
-        c->cover();
 
-        node* p = c->down;
-        for(p; p != c; p = p->down) {
-            solution[i] = p->coords;
-            i++;
+    node* c = choose_col();
+    c->cover();
 
-            node* q = p->right;
-            for(q; q != p; q = q->right)
-                (q->header)->cover();
+    node* p = c->down;
+    for(p; p != c; p = p->down) {
+        solution[i] = p->coords;
+        i++;
 
-            dlx(matrix, solution, i);
+        node* q = p->right;
+        for(q; q != p; q = q->right)
+            (q->header)->cover();
 
-            i--;
-            q = p->left;
-            for(q; q != p; q = q->left)
-                (q->header)->uncover();
-        }
+        dlx(matrix, solution, i);
+
+        i--;
+        q = p->left;
+        for(q; q != p; q = q->left)
+            (q->header)->uncover();
     }
+
+    c->uncover();
 }
 
