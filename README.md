@@ -1,4 +1,4 @@
-This is a simple CLI application that uses Prof. Donald Knuth's [Algorithm DLX](https://arxiv.org/abs/cs/0011047){:target="_blank"} to find all the solutions of a given sudoku puzzle. The blueprint to reduce a sudoku puzzle into an exact cover problem that can be worked upon by DLX was obtained from [this](https://www.kth.se/social/files/58861771f276547fe1dbf8d1/HLaestanderMHarrysson_dkand14.pdf) paper.
+This is a simple CLI application that uses Prof. Donald Knuth's <a href="https://arxiv.org/abs/cs/0011047" target="_blank">Algorithm DLX</a> to find all the solutions of a given sudoku puzzle. The blueprint to reduce a sudoku puzzle into an exact cover problem that can be worked upon by DLX was obtained from <a href="https://www.kth.se/social/files/58861771f276547fe1dbf8d1/HLaestanderMHarrysson_dkand14.pdf" target="_blank">this</a> paper.
 
 To use this application, one can either :
 1. Clone this repository and compile it themselves, or
