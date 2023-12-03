@@ -5,8 +5,10 @@ To use this application, one can either :
 2. Download the executable from the Releases tab for the appropriate OS and run it from a command line terminal of your choice.
 
 The puzzle to be solved must be written in a single line with the clues as it is and the empty spaces replaced by '.'
+
 For example,
 ![puzzle](https://github.com/BAGUVIX456/sudoku-dlx/assets/85876638/9e2ddf87-fcdb-4211-ba95-7b29a4c0fed4)
+
 must be written as
 '..9.6...4.....47.....12..659.4.75..373...1..66....34.146.7.215.2....6.8...1.....2'
 
