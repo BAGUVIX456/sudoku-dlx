@@ -11,7 +11,7 @@ For example,
 ![puzzle](https://github.com/BAGUVIX456/sudoku-dlx/assets/85876638/9e2ddf87-fcdb-4211-ba95-7b29a4c0fed4)
 
 must be written as
-'..9.6...4.....47.....12..659.4.75..373...1..66....34.146.7.215.2....6.8...1.....2'
+`..9.6...4.....47.....12..659.4.75..373...1..66....34.146.7.215.2....6.8...1.....2`
 
 
 ![sudoku](https://github.com/BAGUVIX456/sudoku-dlx/assets/85876638/1520ede8-dbbc-4383-acfd-568b800b4163)
