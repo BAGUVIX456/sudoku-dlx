@@ -2,12 +2,15 @@
 
 using namespace std;
 
+//  Finds out if the entered puzzle is valid
 bool is_valid_puzzle(char* puzzle) {
+    // Entered puzzle MUST be of 81 characters
     if(strlen(puzzle) != 81) {
         cout << "Error: Puzzle input must have 81 characters" << endl << "\tCurrent input has " << strlen(puzzle) << endl;
         return false;
     }
 
+    // Puzzle must only have valid characters
     for(int i=0; i<81; i++) {
         if(!((puzzle[i] >= '1' && puzzle[i] <= '9') || puzzle[i] == '.')) {
             cout << "Error: Puzzle input can only contain numbers from 1 to 9 and '.'" << endl << "\tCharacter " << i+1 << " is \"" << puzzle[i] << "\"" << endl;
@@ -15,6 +18,7 @@ bool is_valid_puzzle(char* puzzle) {
         }
     }
 
+    // No row must have repeated values
     for(int i=0; i<9; i++) {
         int row[9];
         int c = 0;
@@ -35,6 +39,7 @@ bool is_valid_puzzle(char* puzzle) {
         }
     }
 
+    // No column must have repeated values
     for(int i=0; i<9; i++){
         int col[9];
         int c = 0;
@@ -55,6 +60,7 @@ bool is_valid_puzzle(char* puzzle) {
         }
     }
 
+    // No box must have repeated values
     for(int i=0; i<9; i++) {
         int box[9];
         int c = 0;
@@ -80,14 +86,22 @@ bool is_valid_puzzle(char* puzzle) {
     return true;
 }
 
+// Defines contents of one node of the linked list matrix
 class node {
+    // Pointers to surrounding nodes
     node* up;
     node* down;
     node* right;
     node* left;
     node* header;
+    
+    // Element 0 and 1 will hold the location in the 9*9 sudoku table to which the row corresponds
+    // Element 2 will hold the value, ranging from 1 to 9
     int coords[3];
+
     int is_header;
+
+    // Number of nodes connected to the header
     int size;
 
     void wire_nodes(node**, int, int, int);
@@ -96,7 +110,7 @@ class node {
     void uncover();
     
     public:
-        node( ) {
+        node() {
             up = nullptr;
             down = nullptr;
             right = nullptr;
@@ -112,6 +126,7 @@ class node {
         void dlx(node**, int**, int, int);
 };
 
+// Function to properly wire the nodes of the matrix, written separately only to reduce repetition in init_nodes()
 void node::wire_nodes(node** matrix, int row, int pos, int val) {
     for(int j=0; j<4; j++) {
         matrix[row][j].left = (j-1 >= 0? matrix[row]+j-1 : matrix[row]+3);
@@ -179,6 +194,7 @@ void node::init_nodes(node** matrix, char* puzzle) {
     }
 }
 
+// Chooses the column header with the lowest number of nodes connected to it
 node* node::choose_col() {
     node* p = right;
     node* lowest = right;   
@@ -226,7 +242,7 @@ void print_solution(int** solution) {
     }
 
     for(int i=0; i<9; i++) {
-        if(i == 3 || i == 6) {
+        if(i%3 == 0 && i != 0) {
             cout << "|-------+-------+-------|\n";
         }
         cout << "| ";
@@ -237,7 +253,7 @@ void print_solution(int** solution) {
         }
         cout << endl;
     }
-    cout << endl;
+    cout << endl << endl;
 }
 
 void node::dlx(node** matrix, int** solution, int i, int depth) {

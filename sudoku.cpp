@@ -5,8 +5,12 @@
 
 using namespace std;
 
+// Calculates the number of rows that the matrix for the given puzzle will occupy
 int calculate_size(char puzzle[]) {
     int len = 0;
+    
+    // A clue will take up only 1 row in the matrix
+    // while an empty space will take up 9 rows, one for each possible value from 1 to 9
     for(int i=0; i<strlen(puzzle); i++)
         if(puzzle[i] == '.')
             len += 9;
