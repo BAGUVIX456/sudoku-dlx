@@ -226,8 +226,15 @@ void print_solution(int** solution) {
     }
 
     for(int i=0; i<9; i++) {
-        for(int j=0; j<9; j++)
+        if(i == 3 || i == 6) {
+            cout << "|-------+-------+-------|\n";
+        }
+        cout << "| ";
+        for(int j=0; j<9; j++) {
             cout << sudoku[i][j] << " ";
+            if((j+1)%3 == 0)
+                cout << "| ";
+        }
         cout << endl;
     }
     cout << endl;
