@@ -2,6 +2,84 @@
 
 using namespace std;
 
+bool is_valid_puzzle(char* puzzle) {
+    if(strlen(puzzle) != 81) {
+        cout << "Error: Puzzle input must have 81 characters" << endl << "\tCurrent input has " << strlen(puzzle) << endl;
+        return false;
+    }
+
+    for(int i=0; i<81; i++) {
+        if(!((puzzle[i] >= '1' && puzzle[i] <= '9') || puzzle[i] == '.')) {
+            cout << "Error: Puzzle input can only contain numbers from 1 to 9 and '.'" << endl << "\tCharacter " << i+1 << " is \"" << puzzle[i] << "\"" << endl;
+            return false;
+        }
+    }
+
+    for(int i=0; i<9; i++) {
+        int row[9];
+        int c = 0;
+        for(int j=0; j<9; j++) {
+            if(puzzle[9*i + j] >= '1' && puzzle[9*j + i] <= '9') {
+                row[c] = puzzle[9*i + j] - '0';
+                c++;
+            }
+        }
+
+        for(int j=0; j<c; j++) {
+            for(int k=j+1; k<c; k++) {
+                if(row[j] == row[k]) {
+                    cout << "Illegal puzzle: Number " << row[j] << " repeated in row " << i+1 << " of sudoku table" << endl;
+                    return false;
+                }
+            }
+        }
+    }
+
+    for(int i=0; i<9; i++){
+        int col[9];
+        int c = 0;
+        for(int j=0; j<9; j++) {
+            if(puzzle[9*j + i] >= '1' && puzzle[9*j +i] <= '9') {
+                col[c] = puzzle[9*j + i] - '0';
+                c++;
+            }
+        }
+
+        for(int j=0; j<c; j++) {
+            for(int k=j+1; k<c; k++) {
+                if(col[j] == col[k]) {
+                    cout << "Illegal puzzle: Number " << col[j] << " repeated in column " << i+1 << " of sudoku table" << endl;
+                    return false;
+                }
+            }
+        }
+    }
+
+    for(int i=0; i<9; i++) {
+        int box[9];
+        int c = 0;
+        for(int j=0; j<3; j++) {
+            for(int k=0; k<3; k++) {
+                if(puzzle[9*((i/3)*3+j) + ((i%3)*3)+k] >= '1' && puzzle[9*((i/3)*3+j) + ((i%3)*3)+k] <= '9') {
+                    box[c] = puzzle[9*((i/3)*3+j) + ((i%3)*3)+k] - '0';
+                    c++;
+                }
+            } 
+        }
+
+        for(int j=0; j<c; j++) {
+            for(int k=j+1; k<c; k++) {
+                if(box[j] == box[k]) {
+                    cout << "Illegal puzzle: Number " << box[j] << " repeated in box " << i+1 << " of sudoku table" << endl;
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 class node {
     node* up;
     node* down;
@@ -152,7 +230,7 @@ void print_solution(int** solution) {
             cout << sudoku[i][j] << " ";
         cout << endl;
     }
-    cout << endl << endl;
+    cout << endl;
 }
 
 void node::dlx(node** matrix, int** solution, int i, int depth) {

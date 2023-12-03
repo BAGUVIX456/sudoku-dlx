@@ -16,21 +16,33 @@ int calculate_size(char puzzle[]) {
     return len;
 }
 
-int main() {
-    char puzzle[] = ".23..4.6...9.314...4...5....5....2.....843.....1....4....3...8...249.6...7.2..31.";
-    node* root = new node[325];
-    root->init_colheaders();
+int main(int argc, char** argv) {
+    if(argc == 2) {
+        char* puzzle = argv[1];
 
-    int rows = calculate_size(puzzle);
-    node** matrix = new node*[rows];
-    for(int i=0; i<rows; i++)
-        matrix[i] = new node[4];
-    root->init_nodes(matrix, puzzle);
+        if(is_valid_puzzle(puzzle)) {
+            node* root = new node[325];
+            root->init_colheaders();
 
-    int** solution = new int*[81];
-    for(int i=0; i<81; i++)
-        solution[i] = new int[3];
-    root->dlx(matrix, solution, 0, 0);
+            int rows = calculate_size(puzzle);
+            node** matrix = new node*[rows];
+            for(int i=0; i<rows; i++)
+                matrix[i] = new node[4];
+            root->init_nodes(matrix, puzzle);
 
-    return 0;
+            int** solution = new int*[81];
+            for(int i=0; i<81; i++)
+                solution[i] = new int[3];
+            root->dlx(matrix, solution, 0, 0);
+            
+            return 0;
+        }
+        else
+            return 2;
+    }
+    else {
+        cout << "Error: Expected 1 argument, received " << argc-1 << endl;
+        return 1;
+    }
+    
 }
