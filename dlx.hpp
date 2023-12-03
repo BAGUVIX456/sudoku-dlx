@@ -31,15 +31,15 @@ class node {
 
         void init_colheaders();
         void init_nodes(node**, char*);
-        void dlx(node**, int**, int);
+        void dlx(node**, int**, int, int);
 };
 
 void node::wire_nodes(node** matrix, int row, int pos, int val) {
     for(int j=0; j<4; j++) {
         matrix[row][j].left = (j-1 >= 0? matrix[row]+j-1 : matrix[row]+3);
         matrix[row][j].right = matrix[row]+((j+1)%4);
-        matrix[row][j].coords[0] = pos/4;
-        matrix[row][j].coords[1] = pos%4;
+        matrix[row][j].coords[0] = pos/9;
+        matrix[row][j].coords[1] = pos%9;
         matrix[row][j].coords[2] = val;
 
         switch(j) {
@@ -64,8 +64,7 @@ void node::wire_nodes(node** matrix, int row, int pos, int val) {
         for(p; p->down != nullptr; p = p->down);
         p->down = &matrix[row][j];
         matrix[row][j].up = p;
-
-        matrix[row][j].size++;
+        matrix[row][j].header->size++;
     }
 }
 
@@ -81,7 +80,7 @@ void node::init_colheaders() {
 void node::init_nodes(node** matrix, char* puzzle) {
     int row = 0;
 
-    for(int i=0; i<strlen(puzzle); i++) {
+    for(int i=0; i<81; i++) {
         if(puzzle[i] >= '1' && puzzle[i] <= '9') {
             wire_nodes(matrix, row, i, puzzle[i]-'0');
             row++;
@@ -156,7 +155,7 @@ void print_solution(int** solution) {
     cout << endl << endl;
 }
 
-void node::dlx(node** matrix, int** solution, int i) {
+void node::dlx(node** matrix, int** solution, int i, int depth) {
     if(right == this) {
         print_solution(solution);
         return;
@@ -174,7 +173,7 @@ void node::dlx(node** matrix, int** solution, int i) {
         for(q; q != p; q = q->right)
             (q->header)->cover();
 
-        dlx(matrix, solution, i);
+        dlx(matrix, solution, i, depth+1);
 
         i--;
         q = p->left;

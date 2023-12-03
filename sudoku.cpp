@@ -17,7 +17,7 @@ int calculate_size(char puzzle[]) {
 }
 
 int main() {
-    char puzzle[] = "53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79";
+    char puzzle[] = ".23..4.6...9.314...4...5....5....2.....843.....1....4....3...8...249.6...7.2..31.";
     node* root = new node[325];
     root->init_colheaders();
 
@@ -30,7 +30,7 @@ int main() {
     int** solution = new int*[81];
     for(int i=0; i<81; i++)
         solution[i] = new int[3];
-    root->dlx(matrix, solution, 0);
+    root->dlx(matrix, solution, 0, 0);
 
     return 0;
 }
