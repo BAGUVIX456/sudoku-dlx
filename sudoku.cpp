@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
             return 2;
     }
     else {
-        cout << "Error: Expected 1 argument, received " << argc-1 << endl;
+        cerr << "Error: Expected 1 argument, received " << argc-1 << endl;
         return 1;
     }
     
