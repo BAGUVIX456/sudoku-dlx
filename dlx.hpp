@@ -6,14 +6,14 @@ using namespace std;
 bool is_valid_puzzle(char* puzzle) {
     // Entered puzzle MUST be of 81 characters
     if(strlen(puzzle) != 81) {
-        cout << "Error: Puzzle input must have 81 characters" << endl << "\tCurrent input has " << strlen(puzzle) << endl;
+        cerr << "Error: Puzzle input must have 81 characters" << endl << "\tCurrent input has " << strlen(puzzle) << endl;
         return false;
     }
 
     // Puzzle must only have valid characters
     for(int i=0; i<81; i++) {
         if(!((puzzle[i] >= '1' && puzzle[i] <= '9') || puzzle[i] == '.')) {
-            cout << "Error: Puzzle input can only contain numbers from 1 to 9 and '.'" << endl << "\tCharacter " << i+1 << " is \"" << puzzle[i] << "\"" << endl;
+            cerr << "Error: Puzzle input can only contain numbers from 1 to 9 and '.'" << endl << "\tCharacter " << i+1 << " is \"" << puzzle[i] << "\"" << endl;
             return false;
         }
     }
@@ -32,7 +32,7 @@ bool is_valid_puzzle(char* puzzle) {
         for(int j=0; j<c; j++) {
             for(int k=j+1; k<c; k++) {
                 if(row[j] == row[k]) {
-                    cout << "Illegal puzzle: Number " << row[j] << " repeated in row " << i+1 << " of sudoku table" << endl;
+                    cerr << "Illegal puzzle: Number " << row[j] << " repeated in row " << i+1 << " of sudoku table" << endl;
                     return false;
                 }
             }
@@ -53,7 +53,7 @@ bool is_valid_puzzle(char* puzzle) {
         for(int j=0; j<c; j++) {
             for(int k=j+1; k<c; k++) {
                 if(col[j] == col[k]) {
-                    cout << "Illegal puzzle: Number " << col[j] << " repeated in column " << i+1 << " of sudoku table" << endl;
+                    cerr << "Illegal puzzle: Number " << col[j] << " repeated in column " << i+1 << " of sudoku table" << endl;
                     return false;
                 }
             }
@@ -76,7 +76,7 @@ bool is_valid_puzzle(char* puzzle) {
         for(int j=0; j<c; j++) {
             for(int k=j+1; k<c; k++) {
                 if(box[j] == box[k]) {
-                    cout << "Illegal puzzle: Number " << box[j] << " repeated in box " << i+1 << " of sudoku table" << endl;
+                    cerr << "Illegal puzzle: Number " << box[j] << " repeated in box " << i+1 << " of sudoku table" << endl;
                     return false;
                 }
             }
