@@ -1,3 +1,2 @@
-*.out
-*.exe
-*.gch
+a.out
+dlx.hpp.gch
