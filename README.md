@@ -13,6 +13,6 @@ For example,
 must be written as
 `..9.6...4.....47.....12..659.4.75..373...1..66....34.146.7.215.2....6.8...1.....2`
 
+<br><br>
 
-![sudoku](https://github.com/BAGUVIX456/sudoku-dlx/assets/85876638/1520ede8-dbbc-4383-acfd-568b800b4163)
-
+![sudoku_2](https://github.com/BAGUVIX456/sudoku-dlx/assets/85876638/5829a8d4-7e40-49f1-8e27-0b9d29dd0e6e)
