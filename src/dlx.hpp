@@ -240,20 +240,29 @@ void print_solution(int** solution) {
     for(int i=0; i<81; i++) {
         sudoku[solution[i][0]][solution[i][1]] = solution[i][2];
     }
+    
+    cout << "╔═══════════╤═══════════╤═══════════╗" << endl;
 
     for(int i=0; i<9; i++) {
-        if(i%3 == 0 && i != 0) {
-            cout << "|-------+-------+-------|\n";
-        }
-        cout << "| ";
+        cout << "║ ";
         for(int j=0; j<9; j++) {
-            cout << sudoku[i][j] << " ";
-            if((j+1)%3 == 0)
-                cout << "| ";
+            cout << sudoku[i][j];
+          
+            if(j != 8) {
+                if((j+1)%3 == 0)
+                    cout << " │ ";
+                else
+                    cout << " ┆ ";
+            }
         }
-        cout << endl;
+        cout << " ║" << endl;
+        if(i != 8)
+            if((i+1)%3 == 0)
+                cout << "╟───────────┼───────────┼───────────╢" << endl;
+            else
+                cout << "║---+---+---┼---+---+---┼---+---+---║" << endl;
     }
-    cout << endl << endl;
+    cout << "╚═══════════╧═══════════╧═══════════╝" << endl << endl;
 }
 
 void node::dlx(node** matrix, int** solution, int i, int depth) {
